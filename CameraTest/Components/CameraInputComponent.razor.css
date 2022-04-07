@@ -5,6 +5,13 @@
 }
 
 .camera-streaming {
+    width: 350px;
+    height: auto;
+    border-radius: 10px;
+    overflow: hidden;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
 }
 
 .camera-unavailable {
