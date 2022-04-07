@@ -8,6 +8,9 @@ namespace CameraTest.Components
         private const string jsModulePath = $"./{nameof(Components)}/{nameof(CameraInputComponent)}.razor.js";
         private ElementReference VideoElement;
         private string? errorMessage;
+        private bool isCameraStreaming;
+
+        private string CssCameraWrapper => isCameraStreaming ? "camera-streaming" : "camera-unavailable";
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -19,15 +22,18 @@ namespace CameraTest.Components
         }
 
         [JSInvokable]
-        public async Task OnCameraStreaming()
+        public void OnCameraStreaming()
         {
-            Console.WriteLine("Hello from dotnet");
+            isCameraStreaming = true;
+            StateHasChanged();
         }
 
         [JSInvokable]
-        public async Task OnCameraStreamingError(string? msg)
+        public void OnCameraStreamingError(string? msg)
         {
+            isCameraStreaming = false;
             errorMessage = msg;
+            StateHasChanged();
         }
     }
 }

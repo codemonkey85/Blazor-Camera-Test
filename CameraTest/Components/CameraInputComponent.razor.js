@@ -26,8 +26,6 @@ function handleSuccess(stream, video) {
 }
 
 function handleError(error, dotnet) {
-    //console.log("Something went wrong!");
-    //console.error(error);
     if (error.name === 'ConstraintNotSatisfiedError') {
         const v = constraints.video;
         errorMsg(`resolution`, error, dotnet);
