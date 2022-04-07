@@ -30,12 +30,12 @@ namespace CameraTest.Services
 
         #region Private methods
 
-        public bool ModuleInitialized(string jsPath)
+        private bool ModuleInitialized(string jsPath)
         {
             return modules.ContainsKey(jsPath);
         }
 
-        public void InitializeModule(string jsPath)
+        private void InitializeModule(string jsPath)
         {
             Lazy<Task<IJSObjectReference>> moduleTask = new();
             try
@@ -51,6 +51,10 @@ namespace CameraTest.Services
 
         private async Task<IJSObjectReference> GetModule(string jsPath)
         {
+            if (!ModuleInitialized(jsPath))
+            {
+                InitializeModule(jsPath);
+            }
             return await modules[jsPath].Value;
         }
 

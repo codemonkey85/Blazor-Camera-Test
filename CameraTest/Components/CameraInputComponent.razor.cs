@@ -5,6 +5,7 @@ namespace CameraTest.Components
 {
     public partial class CameraInputComponent
     {
+        private const string jsModulePath = $"./{nameof(Components)}/{nameof(CameraInputComponent)}.razor.js";
         private ElementReference VideoElement;
         private string? errorMessage;
 
@@ -12,11 +13,6 @@ namespace CameraTest.Components
 
         protected override async Task OnInitializedAsync()
         {
-            const string jsModulePath = $"./{nameof(Components)}/{nameof(CameraInputComponent)}.razor.js";
-            if (!JsInteropService.ModuleInitialized(jsModulePath))
-            {
-                JsInteropService.InitializeModule(jsModulePath);
-            }
             objRef = DotNetObjectReference.Create(this);
             await JsInteropService.InvokeVoidWithModuleAsync(jsModulePath, "getCameraFeed", VideoElement, objRef);
         }
