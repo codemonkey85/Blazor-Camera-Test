@@ -22,9 +22,10 @@ namespace CameraTest.Components
         }
 
         [JSInvokable]
-        public void OnCameraStreaming()
+        public async void OnCameraStreaming()
         {
             isCameraStreaming = true;
+            await JsInteropService.InvokeVoidWithModuleAsync(jsModulePath, "initializeBouncing");
             StateHasChanged();
         }
 

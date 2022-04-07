@@ -63,8 +63,10 @@ var box = document.getElementById('camera-container'),
     speed = 4,
     timeout = null;
 
-if (!document.getElementById('camera-container').classList.contains('camera-unavailable')) {
-    init();
+export function initializeBouncing() {
+    if (!document.getElementById('camera-container').classList.contains('camera-unavailable')) {
+        init();
+    }
 }
 
 // reset constraints on resize
