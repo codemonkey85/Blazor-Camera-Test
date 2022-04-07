@@ -9,12 +9,13 @@ namespace CameraTest.Components
         private ElementReference VideoElement;
         private string? errorMessage;
 
-        private DotNetObjectReference<CameraInputComponent> objRef;
-
-        protected override async Task OnInitializedAsync()
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            objRef = DotNetObjectReference.Create(this);
-            await JsInteropService.InvokeVoidWithModuleAsync(jsModulePath, "getCameraFeed", VideoElement, objRef);
+            if (!firstRender)
+            {
+                return;
+            }
+            await JsInteropService.InvokeVoidWithModuleAsync(jsModulePath, "getCameraFeed", VideoElement, DotNetObjectReference.Create(this));
         }
 
         [JSInvokable]
@@ -27,11 +28,6 @@ namespace CameraTest.Components
         public async Task OnCameraStreamingError(string? msg)
         {
             errorMessage = msg;
-        }
-
-        public void Dispose()
-        {
-            objRef?.Dispose();
         }
     }
 }
